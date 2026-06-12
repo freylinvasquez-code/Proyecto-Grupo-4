@@ -17,10 +17,9 @@ public class ControlVentas {
      */
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        int opcion = 0;
         
         Bienvenida();
-        opcion = Menu(input);
+        Menu(input);
         
     }//Fin de Main
     
@@ -52,5 +51,11 @@ public class ControlVentas {
         System.out.println("\n\nSeleccione una opción:");
         return input.nextInt();
     }//Fin de Función Menu
+    
+    public static void SelecAccion(){
+        
+        
+        
+    }
     
 }//Fin de Class
