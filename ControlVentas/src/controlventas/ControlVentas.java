@@ -19,7 +19,8 @@ public class ControlVentas {
         Scanner input = new Scanner(System.in);
         
         Bienvenida();
-        Menu(input);
+        SelecAccion(input);
+        
         
     }//Fin de Main
     
@@ -52,10 +53,52 @@ public class ControlVentas {
         return input.nextInt();
     }//Fin de Función Menu
     
-    public static void SelecAccion(){
+    public static int SelecAccion(Scanner input){
+        int opcion = 0;
         
+        do{
+            opcion = Menu(input);
+            switch(opcion){
+                case 1:
+                    registrarProducto(input);
+                    break;
+                default:
+                    System.out.println("Opción Invalida");
+            }//Fin de Switch
+        }while(opcion <= 11);//Fin de Do While
+        return opcion;
+    }
+    
+    public static void registrarProducto(Scanner input){
+        int n = 0;
+        String codigos[] = new String[1000];
+        String nombres[] = new String[1000];
+        String categorias[] = new String[1000];
+        int existencias[] = new int[1000];
+        double costos[] = new double[1000];
+        double precios[] = new double[1000];
+        int totalProductos = 0;
         
+        System.out.print("¿Cuántos productos desea registrar? ");
+        n = input.nextInt();
         
+        for(int i = 0; i < n; i++){
+            System.out.println("\nProducto #" + (i + 1));
+            System.out.println("Código: ");
+            input.nextLine();
+            codigos[totalProductos] = input.nextLine();
+            System.out.println("Nombre: ");
+            nombres[totalProductos] = input.nextLine();
+            System.out.println("Categoría: ");
+            categorias[totalProductos] = input.nextLine();
+            System.out.println("Existencias: ");
+            existencias[totalProductos] = input.nextInt();
+            System.out.println("Costo: ");
+            costos[totalProductos] = input.nextDouble();
+            System.out.println("Precio de venta: ");
+            precios[totalProductos] = input.nextDouble();
+            totalProductos++;
+        }
     }
     
 }//Fin de Class
