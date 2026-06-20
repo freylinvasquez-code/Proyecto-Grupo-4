@@ -49,7 +49,7 @@ public class ControlVentas {
         System.out.printf("%n%-4s %-5s",num++ + ".","Estadísticas generales");
         System.out.printf("%n%-4s %-5s",num++ + ".","Salir");
         
-        System.out.println("\n\nSeleccione una opción:");
+        System.out.println("\n\nSeleccione una opción: ");
         return input.nextInt();
     }//Fin de Función Menu
     
@@ -84,19 +84,33 @@ public class ControlVentas {
         
         for(int i = 0; i < n; i++){
             System.out.println("\nProducto #" + (i + 1));
-            System.out.println("Código: ");
+            System.out.print("Código: ");
             input.nextLine();
             codigos[totalProductos] = input.nextLine();
-            System.out.println("Nombre: ");
+            System.out.print("Nombre: ");
             nombres[totalProductos] = input.nextLine();
-            System.out.println("Categoría: ");
+            System.out.print("Categoría: ");
             categorias[totalProductos] = input.nextLine();
-            System.out.println("Existencias: ");
+            System.out.print("Existencias: ");
             existencias[totalProductos] = input.nextInt();
-            System.out.println("Costo: ");
+            while(existencias[totalProductos] < 0){
+                System.out.println("Las existencias no pueden ser negativas.");
+                System.out.print("Ingrese existencias nuevamente: ");
+                existencias[totalProductos] = input.nextInt();
+            }
+            System.out.print("Costo: ");
             costos[totalProductos] = input.nextDouble();
-            System.out.println("Precio de venta: ");
+            while(costos[totalProductos] <= 0){
+                System.out.println("El costo debe ser mayor que cero.");
+                System.out.print("Ingrese nuevamente el costo: ");
+                costos[totalProductos] = input.nextInt();
+            }
+            System.out.print("Precio de venta: ");
             precios[totalProductos] = input.nextDouble();
+            while(precios[totalProductos] <= 0 || precios[totalProductos] <= costos[totalProductos]);
+            System.out.println("El precio debe ser mayor a 0 y mayor que el costo.");
+            System.out.print("Ingrese nuevamente el precio: ");
+            precios[totalProductos] = input.nextInt();
             totalProductos++;
         }
     }
