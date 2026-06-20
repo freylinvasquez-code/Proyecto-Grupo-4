@@ -7,28 +7,35 @@ import java.util.Scanner;
 import java.util.Random;
 
 /**
- *
+ * Panadería Welchez necesita llevar un control eficiente del inventario y
+ * las ventas. El propósito de este programa es que sea una opción viable,
+ * eficiente y no costoso para suplir esta necesidad de Welchez. El programa
+ * contará de un menú principal que cuente con las siguientes opciones:
+ * 1. Registrar producto.
+ * 2. Buscar producto.
+ * 3. Actualizar inventario.
+ * 4. Generar factura.
+ * 5. Ver inventario.
+ * 6. Producto más vendido.
+ * 7. Producto menos vendido.
+ * 8. Producto bajo en inventario.
+ * 9. Resumen de ventas.
+ * 10. Estadísticas generales.
+ * 11. Salir.
+ * 
  * @author freyvas
  */
 public class ControlVentas {
+    //Declaración de variables globales
+    static String codigos[] = new String[1000];
+    static String nombres[] = new String[1000];
+    static String categorias[] = new String[1000];
+    static int existencias[] = new int[1000];
+    static double costos[] = new double[1000];
+    static double precios[] = new double[1000];
+    static double ganancias = 0;
+    static int totalProductos = 0;
 
-    /**
-     * Panadería Welchez necesita llevar un control eficiente del inventario y
-     * las ventas. El propósito de este programa es que sea una opción viable,
-     * eficiente y no costoso para suplir esta necesidad de Welchez. El programa
-     * contará de un menú principal que cuente con las siguientes opciones:
-     * 1. Registrar producto.
-     * 2. Buscar producto.
-     * 3. Actualizar inventario.
-     * 4. Generar factura.
-     * 5. Ver inventario.
-     * 6. Producto más vendido.
-     * 7. Producto menos vendido.
-     * 8. Producto bajo en inventario.
-     * 9. Resumen de ventas.
-     * 10. Estadísticas generales.
-     * 11. Salir.
-     */
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         
@@ -82,24 +89,19 @@ public class ControlVentas {
                 case 1:
                     registrarProducto(input);
                     break;
+                case 2:
+                    buscarProducto(input);
+                    break;
                 default:
                     System.out.println("Opción Invalida");
             }//Fin de Switch
         }while(opcion <= 11);//Fin de Do While
         return opcion;
-    }
+    }//Fin de Función SelecAccion
     
     //Función utilizada para registrar productos
     public static void registrarProducto(Scanner input){
         int n = 0;
-        String codigos[] = new String[1000];
-        String nombres[] = new String[1000];
-        String categorias[] = new String[1000];
-        int existencias[] = new int[1000];
-        double costos[] = new double[1000];
-        double precios[] = new double[1000];
-        double ganancias = 0;
-        int totalProductos = 0;
         
         System.out.print("¿Cuántos productos desea registrar? ");
         n = input.nextInt();
@@ -137,9 +139,9 @@ public class ControlVentas {
             
             System.out.print("Precio de venta: ");
             precios[totalProductos] = input.nextDouble();
-            //WHILE para validar que el precio sea mayor que 0 y mayor que el costo
-            while(precios[totalProductos] <= 0 || precios[totalProductos] <= costos[totalProductos]){
-                System.out.println("El precio debe ser mayor a 0 y mayor que el costo.");
+            //WHILE para validar que el precio sea mayor que el costo
+            while(precios[totalProductos] <= costos[totalProductos]){
+                System.out.println("El precio debe ser mayor que el costo.");
                 System.out.print("Ingrese nuevamente el precio: ");
                 precios[totalProductos] = input.nextDouble();   
             }//Fin de While
@@ -150,6 +152,36 @@ public class ControlVentas {
             
             totalProductos++;
         }//Fin de Ciclo For
-    }
+    }//Fin de Función registrarProducto
+    
+    public static void buscarProducto(Scanner input){
+        int ops = 0;
+        String codigo = "";
+        
+        System.out.println("Opciones: ");
+        System.out.println("1. Código");
+        System.out.println("2. Nombre");
+        System.out.print("¿Desea buscar el producto por còdigo o nombre? ");
+        ops = input.nextInt(); 
+        
+        switch(ops){
+            case 1:
+                System.out.print("Ingrese el código del producto: ");
+                codigo = input.nextLine();
+                
+                for(int i = 0; i < totalProductos; i++){
+                    if(codigos[i].toLowerCase(codigo)){
+                        System.out.println("\nProducto encontrado.");
+                        System.out.println("Código: " + codigos[i]);
+                        System.out.println("Nombre: " + nombres[i]);
+                        System.out.println("Categoría: " + categorias[i]);
+                        System.out.println("Existencias: " + existencias[i]);
+                        System.out.println("Costo L: " + costos[i]);
+                        System.out.println("Precio L: " + precios[i]);
+                    }//Fin de If
+                }//Fin de Ciclo For
+        }//Fin de Switch
+        
+    }//Fin de Función buscarProducto
     
 }//Fin de Class
