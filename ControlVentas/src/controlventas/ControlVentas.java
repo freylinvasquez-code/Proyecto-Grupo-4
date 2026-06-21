@@ -110,14 +110,14 @@ public class ControlVentas {
             System.out.println("\nProducto #" + (i + 1));
             
             System.out.print("Código: ");
-            input.nextLine();
+            input.nextLine();//Limpieza de Buffer
+            codigos[totalProductos] = input.nextLine().toUpperCase();
             
-            codigos[totalProductos] = input.nextLine();
             System.out.print("Nombre: ");
-            nombres[totalProductos] = input.nextLine();
+            nombres[totalProductos] = input.nextLine().toUpperCase();
             
             System.out.print("Categoría: ");
-            categorias[totalProductos] = input.nextLine();
+            categorias[totalProductos] = input.nextLine().toUpperCase();
             
             System.out.print("Existencias: ");
             existencias[totalProductos] = input.nextInt();
@@ -157,12 +157,15 @@ public class ControlVentas {
     public static void buscarProducto(Scanner input){
         int ops = 0;
         String codigo = "";
+        String nombre = "";
+        boolean encontrado = false;
         
         System.out.println("Opciones: ");
         System.out.println("1. Código");
         System.out.println("2. Nombre");
-        System.out.print("¿Desea buscar el producto por còdigo o nombre? ");
+        System.out.print("¿Desea buscar el producto por código o nombre? ");
         ops = input.nextInt(); 
+        input.nextLine();//Limpieza de Buffer
         
         switch(ops){
             case 1:
@@ -170,8 +173,9 @@ public class ControlVentas {
                 codigo = input.nextLine();
                 
                 for(int i = 0; i < totalProductos; i++){
-                    if(codigos[i].toLowerCase(codigo)){
+                    if(codigos[i].equalsIgnoreCase(codigo)){
                         System.out.println("\nProducto encontrado.");
+                        encontrado = true;
                         System.out.println("Código: " + codigos[i]);
                         System.out.println("Nombre: " + nombres[i]);
                         System.out.println("Categoría: " + categorias[i]);
@@ -180,6 +184,35 @@ public class ControlVentas {
                         System.out.println("Precio L: " + precios[i]);
                     }//Fin de If
                 }//Fin de Ciclo For
+                
+                if(!encontrado){
+                    System.out.println("Producto no encontrado.");
+                }//Fin de If
+                break;
+                
+            case 2: 
+                System.out.print("Ingrese el nombre del producto: ");
+                nombre = input.nextLine();
+                
+                for(int i = 0; i < totalProductos; i++){
+                    if(nombres[i].equalsIgnoreCase(nombre)){
+                        System.out.println("\nProducto encontrado.");
+                        encontrado = true;
+                        System.out.println("Código: " + codigos[i]);
+                        System.out.println("Nombre: " + nombres[i]);
+                        System.out.println("Categoría: " + categorias[i]);
+                        System.out.println("Existencias: " + existencias[i]);
+                        System.out.println("Costo L: " + costos[i]);
+                        System.out.println("Precio L: " + precios[i]);
+                    }//Fin de If
+                }//Fin de Ciclo For
+                
+                if(!encontrado){
+                    System.out.println("Producto no encontrado.");
+                }//Fin de If
+                
+            default:
+                System.out.println("Opción invalida");
         }//Fin de Switch
         
     }//Fin de Función buscarProducto
