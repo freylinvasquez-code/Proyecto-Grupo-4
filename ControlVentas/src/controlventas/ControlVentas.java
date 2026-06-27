@@ -94,7 +94,6 @@ public class ControlVentas {
                 case 2:
                     buscarProducto(input);
                     break;
-	
                 case 3:
                     actualizarInventario(input);
                     break;
